@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.Extensions.Configuration
+@using System.IO
+
+@inject IConfiguration configuration
+@{
+    var name = configuration.GetValue<string>("pwa:name") ?? throw new Exception("appsettings.json configuration wrong, pwa:name not found");
+    var url = configuration.GetValue<string>("pwa:url") ?? throw new Exception("appsettings.json configuration wrong, pwa:url not found");
+    var description = configuration.GetValue<string>("pwa:description") ?? throw new Exception("appsettings.json configuration wrong, pwa:description not found");
+
+    var svg = File.Exists($"wwwroot/meta/favicon.svg");
+    var png = File.Exists($"wwwroot/meta/favicon.png");
+    var jpg = File.Exists($"wwwroot/meta/opengraph.jpg");
+
+    if (png == false)
+    {
+        throw new Exception("wwwroot configuration wrong, wwwroot/meta/favicon.png is missing");
+    }
+    var image = jpg switch
+    {
+        true => "/meta/opengraph.jpg",
+        false => svg switch
+        {
+            true => "/meta/favicon.svg",
+            false => "/meta/favicon.png"
+        }
+    };
+}
+<PageTitle>@name</PageTitle>
+<meta name="title" content="@name" />
+<meta name="description" content="@description" />
+<link rel="manifest" href="/pwa/site.webmanifest" />
+@if (svg)
+{
+    <link rel="icon" type="image/svg" sizes="32x32" href="/meta/favicon.svg?dark" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg" sizes="32x32" href="/meta/favicon.svg?light" media="(prefers-color-scheme: light)" />
+}
+else
+{
+    <link rel="icon" type="image/png" sizes="512x512" href="/meta/favicon.png" />
+}
+<meta property="og:type" content="website">
+<meta property="og:title" content="@name">
+<meta property="og:description" content="@description">
+<meta property="og:image" content="@($"{url}{image}")">
+<HeadOutlet />

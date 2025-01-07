@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<RootNamespace>Conesoft.PwaGenerator</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>1.0.0</Version>
+		<Authors>davepermen</Authors>
+		<Company>Conesoft</Company>
+		<PackageIcon>Conesoft.forNuget.x256.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/conesoft/nuget-pwa-generator</PackageProjectUrl>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>simple generator for pwa content, opengraph meta content, title, etc, from appsettings.json</Description>
+		<PackageTags>library dotnet-core</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="Conesoft.forNuget.x256.png" Pack="true" PackagePath="\" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\LICENSE" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+</Project>
