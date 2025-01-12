@@ -85,6 +85,7 @@ public static class AddPwaInformationExtensions
         };
 
         app.MapGet("/pwa/site.webmanifest", () => Results.Json(json, contentType: "application/manifest+json"));
+        app.MapGet("/robots.txt", () => "User-agent: GPTBot\r\nDisallow: /\r\n");
         return app;
     }
 }
